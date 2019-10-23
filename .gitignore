@@ -1,0 +1,7 @@
+/flask/.vscode/*
+
+/flask/__pycache__/*
+
+/frontend/node_modules/*
+
+/data/*
