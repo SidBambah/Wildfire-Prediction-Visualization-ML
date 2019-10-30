@@ -43,7 +43,7 @@ class WordCloud extends React.Component {
                 <i className="fas fa-chart-area"></i>
                 WordCloud</div>
             <div className="card-body mx-auto">
-            <div style={{height: "350px", width: "350px"}}>
+            <div style={{height: "500px", width: "500px"}}>
                 <ReactWordcloud options={options} words={this.state.data}/>
             </div>
             </div>
