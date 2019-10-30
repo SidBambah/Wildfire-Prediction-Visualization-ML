@@ -26,7 +26,7 @@ class WordCloud extends React.Component {
 
     componentDidMount(){
         //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/visualization/wordcloud')
+        axios.get(APIConnection["endpoint"] + '/visualization/wordcloud?parameter=' + this.props.parameter)
             .then((response) => {
                 this.setState({data: response.data});
         });

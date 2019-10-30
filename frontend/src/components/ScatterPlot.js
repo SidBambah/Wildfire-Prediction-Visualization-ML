@@ -1,55 +1,62 @@
 import React from 'react';
-import {Scatter} from 'react-chartjs-2';
-
+import APIConnection from './APIConnection.js';
+import axios from 'axios';
+import CanvasJSReact from '../assets/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class ScatterPlot extends React.Component {
-  state = {
-    data: {
-      labels: ['Scatter'],
-      datasets: [
-        {
-          label: this.props.name,
-          fill: false,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 10,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 4,
-          pointHitRadius: 10,
-          data: [
-            { x: 65, y: 75 },
-            { x: 59, y: 49 },
-            { x: 80, y: 90 },
-            { x: 81, y: 29 },
-            { x: 56, y: 36 },
-            { x: 55, y: 25 },
-            { x: 40, y: 18 },
-          ]
-        }
-      ]
+  
+  options= {
+    theme: "dark2",
+    animationEnabled: true,
+    zoomEnabled: true,
+    title:{
+      text: this.props.parameter1 + " vs " + this.props.parameter2
     },
-    options: {
-      scales: {
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: this.props.yaxis
-          }
-        }],
-        xAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: this.props.xaxis
-          }
-        }],
-      }     
-    }
+    axisX: {
+      title: this.props.parameter1,
+      scaleBreaks: {
+        autocalculate: true
+      },
+      minimum: -200,
+      maximum: -60,
+      crosshair: {
+        enabled: true,
+        snapToDataPoint: true
+      }
+    },
+    axisY:{
+      title: this.props.parameter2,
+      scaleBreaks: {
+        autocalculate: true
+      },
+      minimum: 20,
+      maximum: 65,
+      crosshair: {
+        enabled: true,
+        snapToDataPoint: true
+      }
+    },
+    data: [{
+      type: "scatter",
+      markerSize: 3,
+      toolTipContent: "<b>" + this.props.parameter1 + ": </b>{x}<br/><b>" + this.props.parameter2 + ": </b>{y}",
+      dataPoints: []
+    }]
   }
   
+
+  componentDidMount(){
+    //Axios Get Request
+    axios.get(APIConnection["endpoint"] + '/visualization/scatterplot?parameter1=' + this.props.parameter1
+              + '&parameter2=' + this.props.parameter2)
+        .then((response) => {
+            this.options.data[0].dataPoints = response.data//[{x: 5, y: 5}, {x: 10, y: 11}]
+            this.chart.render()
+            console.log("Rendered")
+    });
+  }
+
   render(){
       var updateTime = new Date();
       var date = updateTime.getFullYear()+'-'+(updateTime.getMonth()+1)+'-'+updateTime.getDate();
@@ -61,7 +68,10 @@ class ScatterPlot extends React.Component {
               <i className="fas fa-chart-area"></i>
               Scatter Plot</div>
           <div className="card-body mx-auto">
-            <Scatter data={this.state.data} options={this.state.options} width={500} height={500}/>
+            <div style={{height:this.props.height, width:this.props.width}}>
+              <CanvasJSChart options = {this.options}
+                            onRef={ref => this.chart = ref} />
+            </div>
           </div>
           <div className="card-footer small text-muted text-right">Updated {dateTime}</div>
       </div>

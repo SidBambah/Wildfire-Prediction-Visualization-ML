@@ -12,7 +12,7 @@ class DonutChart extends React.Component {
 
     componentDidMount(){
         //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/visualization/donutchart')
+        axios.get(APIConnection["endpoint"] + '/visualization/donutchart?parameter=' + this.props.parameter)
             .then((response) => {
                 this.setState({data: response.data["data"]});
                 this.setState({labels: response.data["labels"]});
@@ -43,7 +43,7 @@ class DonutChart extends React.Component {
             <i className="fas fa-chart-area"></i>
             {this.props.name}</div>
         <div className="card-body mx-auto">
-            <Doughnut data={data} width={500} height={500}/>
+            <Doughnut data={data} width={this.props.width} height={this.props.height}/>
         </div>
         <div className="card-footer small text-muted text-right">Updated { dateTime }</div>
         </div>
