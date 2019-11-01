@@ -10,7 +10,6 @@ class NavBar extends React.Component {
         e.preventDefault();
         $("body").toggleClass("sidebar-toggled");
         $(".sidebar").toggleClass("toggled");
-        console.log('got here');
         });
         // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
         $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
