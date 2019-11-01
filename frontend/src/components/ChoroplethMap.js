@@ -8,20 +8,30 @@ import {
 import ReactTooltip from "react-tooltip";
 import axios from 'axios';
 import {geoAlbersUsa} from "d3-geo";
+import { scaleLinear } from "d3-scale"
 import usaJSON from "../assets/states-10m.json"
 import APIConnection from './APIConnection.js';
 
-
 class ChoroplethMap extends React.Component {
-    data = []
     
     state = {
+        data: null,
         content: "",
         STATE: ""
     }
 
+    minValue = 0
+    maxValue = 5000
+
+    minColor = "#FFD3D3"
+    maxColor = "#FF0000"
+
+    customScale = scaleLinear()
+    .domain([this.minValue,this.maxValue])
+    .range([this.minColor,this.maxColor])
+
     getValue = (name) => {
-        let data = this.data;
+        let data = this.state.data;
         let i;
         for(i = 0; i < data.length; i++){
             if (data[i]['STATE'] === name){
@@ -31,13 +41,17 @@ class ChoroplethMap extends React.Component {
         return "Unknown"
     }
 
-    componentDidMount(){
+    componentWillMount(){
         //Axios Get Request
         axios.get(APIConnection["endpoint"] + '/visualization/choropleth')
             .then((response) => {
-                this.data= response.data
+                this.setState({ data : response.data })
         });
       }
+
+    getFill = (geography) => {
+        return this.state.data ? this.customScale(this.getValue(geography.properties.name)) : "#808080"
+    }
 
     render(){
         var updateTime = new Date();
@@ -60,7 +74,7 @@ class ChoroplethMap extends React.Component {
                     }}
                 >
                     <ZoomableGroup center={[ -97, 40 ]} disablePanning>
-                    <Geographies geography={usaJSON}>  
+                    <Geographies geography={usaJSON} disableOptimization>  
                         {(geographies, projection) =>
                             geographies.map((geography, i) =>
                             <Geography
@@ -74,13 +88,13 @@ class ChoroplethMap extends React.Component {
                                 }}
                                 style={{
                                     default: {
-                                        fill: "#ECEFF1",
+                                        fill: this.getFill(geography),
                                         stroke: "#607D8B",
                                         strokeWidth: 0.75,
                                         outline: "none",
                                     },
                                     hover: {
-                                        fill: "#FF5722",
+                                        fill: "#6fc987",
                                         stroke: "#607D8B",
                                         strokeWidth: 1,
                                         outline: "none",
