@@ -3,6 +3,7 @@ import React from 'react';
 class InlineForm extends React.Component {
     render(){
         return (
+          <div style={{'paddingTop': '25px', 'paddingBottom': '25px'}}>
           <form>
             <div className="form-row">
               <div className="col">
@@ -19,6 +20,7 @@ class InlineForm extends React.Component {
               </div>
             </div>
           </form>
+          </div>
         );
     }
 }

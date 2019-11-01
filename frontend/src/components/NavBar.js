@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import 'jquery-ui-bundle';
 
 class NavBar extends React.Component {
     componentDidMount() {
