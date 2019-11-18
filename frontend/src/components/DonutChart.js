@@ -11,8 +11,15 @@ class DonutChart extends React.Component {
     };
 
     componentDidMount(){
+        let limit;
+        if(this.props.limit){
+            limit = this.props.limit;
+        } else{
+            limit = false;
+        }
         //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/visualization/donutchart?parameter=' + this.props.parameter)
+        axios.get(APIConnection["endpoint"] + '/visualization/donutchart?parameter=' + this.props.parameter
+                            + '&limit=' + limit)
             .then((response) => {
                 this.setState({data: response.data["data"]});
                 this.setState({labels: response.data["labels"]});
@@ -41,7 +48,7 @@ class DonutChart extends React.Component {
         <div className="card mb-3">
         <div className="card-header">
             <i className="fas fa-chart-area"></i>
-            {this.props.name}</div>
+            &nbsp; Donut Chart</div>
         <div className="card-body mx-auto">
             <Doughnut data={data} width={this.props.width} height={this.props.height}/>
         </div>

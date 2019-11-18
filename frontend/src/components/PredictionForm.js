@@ -1,6 +1,6 @@
 import React from 'react';
 
-class InlineForm extends React.Component {
+class PredictionForm extends React.Component {
 
   changeHandler = (e) => {
     let name = e.target.name;
@@ -14,19 +14,21 @@ class InlineForm extends React.Component {
   }
 
   render(){
-      console.log("render called");
       return (
         <div style={{'paddingTop': '25px', 'paddingBottom': '25px'}}>
         <form>
           <div className="form-row">
             <div className="col">
-              <input type="text" className="form-control" placeholder= "Parameter 1" name="param1" onChange = {this.changeHandler} />
+              <input type="text" className="form-control" placeholder= "Location" name="location" onChange = {this.changeHandler} />
             </div>
             <div className="col">
-              <input type="text" className="form-control" placeholder= "Parameter 2" name="param2" onChange = {this.changeHandler} />
+              <input type="text" className="form-control" placeholder= "Month" name="month" onChange = {this.changeHandler} />
             </div>
             <div className="col">
-              <input type="button" className="btn btn-primary" value="Submit" onClick={this.handleSubmit}/>
+              <input type="text" className="form-control" placeholder= "Day of Week" name="dayofweek" onChange = {this.changeHandler} />
+            </div>
+            <div className="col">
+              <input type="button" className="btn btn-primary" value="Make Prediction" onClick={this.handleSubmit}/>
             </div>
           </div>
         </form>
@@ -35,4 +37,4 @@ class InlineForm extends React.Component {
   }
 }
 
-export default InlineForm;
+export default PredictionForm;

@@ -83,7 +83,7 @@ class BarChart extends React.Component {
         <div className="card mb-3">
             <div className="card-header">
                 <i className="fas fa-chart-area"></i>
-                Bar Chart</div>
+                &nbsp; Bar Chart</div>
             <div className="card-body mx-auto">
             <Bar
                 data={this.state.data}

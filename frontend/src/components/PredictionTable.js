@@ -13,45 +13,30 @@ class PredictionTable extends React.Component {
                 <thead className="black white-text">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Prediction</th>
-                    <th scope="col">Accuracy</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Probability</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <td>Natural</td>
+                    <td>{this.props.natural + '%'}</td>
                     </tr>
                     <tr>
                     <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
+                    <td>Accidental</td>
+                    <td>{this.props.accidental + '%'}</td>
                     </tr>
                     <tr>
                     <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
+                    <td>Malicious</td>
+                    <td>{this.props.malicious + '%'}</td>
                     </tr>
                     <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
+                    <th scope="row">4</th>
+                    <td>Other</td>
+                    <td>{this.props.other + '%'}</td>
                     </tr>
                 </tbody>
                 </table>

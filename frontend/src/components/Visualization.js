@@ -3,10 +3,10 @@ import IconCards from './IconCards.js';
 import DonutChart from './DonutChart.js';
 import DataTable from './DataTable.js';
 import WordCloud from './WordCloud.js';
-import ScatterPlot from './ScatterPlot.js';
 import BarChart from './BarChart.js';
 import ChoroplethMap from './ChoroplethMap.js';
-import DynamicGenerator from './DynamicGenerator.js';
+import DynamicVisualization from './DynamicVisualization.js';
+import GoogleMapCluster from './GoogleMapCluster.js';
 
 class Visualization extends React.Component {
     render(){
@@ -24,18 +24,11 @@ class Visualization extends React.Component {
                             width={500}
                             height={500}/>
                 <WordCloud parameter={'STATE'}/>
-                {/*
-                <ScatterPlot name={'Fire Locations'} 
-                            parameter1={'LONGITUDE'}
-                            parameter2={'LATITUDE'}
-                            width={500}
-                            height={500}/>
-                */}
                 <BarChart name={'Top Ten States'} 
                         parameter1={'STATE'}
                         limit={12}
-                        xaxis={'X-axis Label'}
-                        yaxis={'Y-axis Label'}
+                        xaxis={'States'}
+                        yaxis={'Count'}
                         width={500}
                         height={500}/>
                 <BarChart name={'Causes of Fires in California'} 
@@ -43,12 +36,13 @@ class Visualization extends React.Component {
                         parameter2={'STATE'}
                         matchValue={'CA'}
                         limit={10}
-                        xaxis={'X-axis Label'}
-                        yaxis={'Y-axis Label'}
+                        xaxis={'Causes'}
+                        yaxis={'Counts'}
                         width={500}
                         height={500}/>
                 <ChoroplethMap />
-                <DynamicGenerator />
+                <GoogleMapCluster />
+                <DynamicVisualization />
                 <DataTable />
             </div>
         );
