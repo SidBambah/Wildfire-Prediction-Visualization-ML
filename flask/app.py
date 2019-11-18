@@ -32,7 +32,8 @@ def barchart_data():
 @app.route("/api/visualization/donutchart", methods=["GET"])
 def donutchart_data():
     parameter = request.args['parameter']
-    rsp_data = vis_tools.donutchart(parameter)
+    limit = request.args['limit']
+    rsp_data = vis_tools.donutchart(parameter, limit)
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                             status=rsp_status, content_type="application/json")
@@ -46,11 +47,9 @@ def correlation_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/scatterplot", methods=["GET"])
+@app.route("/api/visualization/markers", methods=["GET"])
 def scatterplot_data():
-    parameter1 = request.args['parameter1']
-    parameter2 = request.args['parameter2']
-    rsp_data = vis_tools.scatterplot(parameter1, parameter2)
+    rsp_data = vis_tools.markers()
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                             status=rsp_status, content_type="application/json")
@@ -64,9 +63,25 @@ def choropleth_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/prediction", methods=["GET"])
-def prediction():
-    rsp_data = ml_tools.prediction()
+@app.route("/api/prediction/ca", methods=["GET"])
+def prediction_ca():
+    rsp_data = ml_tools.prediction_ca()
+    rsp_status = 200
+    full_rsp = Response(json.dumps(rsp_data, default=str),
+                                status=rsp_status, content_type="application/json")
+    return full_rsp
+
+@app.route("/api/prediction/tx", methods=["GET"])
+def prediction_tx():
+    rsp_data = ml_tools.prediction_tx()
+    rsp_status = 200
+    full_rsp = Response(json.dumps(rsp_data, default=str),
+                                status=rsp_status, content_type="application/json")
+    return full_rsp
+
+@app.route("/api/prediction/ny", methods=["GET"])
+def prediction_ny():
+    rsp_data = ml_tools.prediction_ny()
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                                 status=rsp_status, content_type="application/json")

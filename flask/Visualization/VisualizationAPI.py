@@ -1,7 +1,6 @@
 from DataAccess.DBConnector import DBConnector as db
 import json
 from Helper.us_state_abbrev import abbrev_us_state
-
 class VisualizationAPI():
     _fire_collection = db.col
 
@@ -48,10 +47,16 @@ class VisualizationAPI():
         return result
 
     @classmethod
-    def donutchart(self, parameter):
-        doc = self._fire_collection.aggregate([
-            {"$group" : {"_id":"$"+parameter, "count":{"$sum":1}}}
-        ])
+    def donutchart(self, parameter, limit):
+        if(limit.lower() != "false"):
+            doc = self._fire_collection.aggregate([
+                {"$group" : {"_id":"$"+parameter, "count":{"$sum":1}}},
+                {"$limit": int(limit)}
+            ])
+        else:
+            doc = self._fire_collection.aggregate([
+                {"$group" : {"_id":"$"+parameter, "count":{"$sum":1}}}
+            ])
         result =  [x for x in doc]
         labels = []
         data = []
@@ -66,19 +71,20 @@ class VisualizationAPI():
         return "Correlation matrix stuff"
 
     @classmethod
-    def scatterplot(self, parameter1, parameter2):
-        doc = self._fire_collection.find({}, {parameter1:1, parameter2:1, "_id":0})
+    def markers(self):
+        doc = self._fire_collection.find({}, {'LATITUDE':1, 'LONGITUDE':1, "_id":1})
         tempResult =  [x for x in doc]
 
         # Processing Dict into properly named keys
         for i in range(len(tempResult)):
-            tempResult[i]['x'] = tempResult[i].pop(parameter1)
-            tempResult[i]['y'] = tempResult[i].pop(parameter2)
+            tempResult[i]['latitude'] = tempResult[i].pop('LATITUDE')
+            tempResult[i]['longitude'] = tempResult[i].pop('LONGITUDE')
+            tempResult[i]['id'] = tempResult[i].pop('_id')
 
         result = []
         for i in range(len(tempResult)):
             try:
-                result.append({'x': float(tempResult[i]['x']), 'y': float(tempResult[i]['y'])})
+                result.append({'latitude': float(tempResult[i]['latitude']), 'longitude': float(tempResult[i]['longitude']), 'id': int(abs(hash(tempResult[i]['id'])))})
             except:
                 pass
 
