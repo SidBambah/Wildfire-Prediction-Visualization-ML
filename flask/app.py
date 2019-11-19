@@ -5,10 +5,10 @@ from Helper.geocoder import getLatLong
 import json
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+application = Flask(__name__)
+CORS(application)
 
-@app.route("/api/visualization/wordcloud", methods=["GET"])
+@application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
     parameter = request.args['parameter']
     rsp_data = vis_tools.wordcloud(parameter)
@@ -17,7 +17,7 @@ def wordcloud_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/barchart", methods=["GET"])
+@application.route("/api/visualization/barchart", methods=["GET"])
 def barchart_data():
     parameter1 = request.args['parameter1']
     parameter2 = request.args['parameter2']
@@ -30,7 +30,7 @@ def barchart_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/donutchart", methods=["GET"])
+@application.route("/api/visualization/donutchart", methods=["GET"])
 def donutchart_data():
     parameter = request.args['parameter']
     limit = request.args['limit']
@@ -40,7 +40,7 @@ def donutchart_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/correlation", methods=["GET"])
+@application.route("/api/visualization/correlation", methods=["GET"])
 def correlation_data():
     rsp_data = vis_tools.correlationmatrix()
     rsp_status = 200
@@ -48,7 +48,7 @@ def correlation_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/markers", methods=["GET"])
+@application.route("/api/visualization/markers", methods=["GET"])
 def scatterplot_data():
     rsp_data = vis_tools.markers()
     rsp_status = 200
@@ -56,7 +56,7 @@ def scatterplot_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/visualization/choropleth", methods=["GET"])
+@application.route("/api/visualization/choropleth", methods=["GET"])
 def choropleth_data():
     rsp_data = vis_tools.choropleth()
     rsp_status = 200
@@ -64,7 +64,7 @@ def choropleth_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/prediction", methods=["GET"])
+@application.route("/api/prediction", methods=["GET"])
 def prediction():
     location = request.args['location']
     month = request.args['month']
@@ -77,4 +77,4 @@ def prediction():
     return full_rsp
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
