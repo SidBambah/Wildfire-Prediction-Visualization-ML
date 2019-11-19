@@ -1,6 +1,7 @@
 from flask import Flask, Response, request
 from Visualization.VisualizationAPI import VisualizationAPI as vis_tools
 from MachineLearning.MachineLearningAPI import MachineLearningAPI as ml_tools
+from Helper.geocoder import getLatLong
 import json
 from flask_cors import CORS
 
@@ -65,7 +66,11 @@ def choropleth_data():
 
 @app.route("/api/prediction/ca", methods=["GET"])
 def prediction_ca():
-    rsp_data = ml_tools.prediction_ca()
+    location = request.args['location']
+    month = request.args['month']
+    dayofweek = request.args['dayofweek']
+    latitude, longitude = getLatLong(location)
+    rsp_data = ml_tools.prediction_ca(month, dayofweek, latitude, longitude)
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                                 status=rsp_status, content_type="application/json")
