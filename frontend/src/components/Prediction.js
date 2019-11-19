@@ -3,6 +3,8 @@ import PredictionTable from './PredictionTable';
 import PredictionForm from './PredictionForm';
 import APIConnection from './APIConnection.js';
 import axios from 'axios';
+import {Bar} from 'react-chartjs-2';
+
 class Prediction extends React.Component {
     state={
         ca: {
@@ -24,14 +26,48 @@ class Prediction extends React.Component {
             other: 0
         }
     }
+
+    barData={
+        data: {
+            labels: [],
+            datasets: [
+              {
+                label: this.props.name,
+                backgroundColor: 'rgba(255,99,132,0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                hoverBorderColor: 'rgba(255,99,132,1)',
+                data: this.state.ca
+              }
+            ]
+          }
+    }
+
+    barOptions={
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: "Probability"
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: "Cause"
+                }
+            }],
+        }
+    }
     handleCASubmit = (data) => {
-        let latitude = data.latitude;
-        let longitude = data.longitude;
+        let location = data.location;
         let month = data.month;
         let dayofweek = data.dayofweek;
         //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/prediction/ca?latitude=' + latitude
-        + '&longitude=' + longitude + '&month=' + month + '&dayofweek=' + dayofweek)
+        axios.get(APIConnection["endpoint"] + '/prediction/ca?location=' + location + 
+        '&month=' + month + '&dayofweek=' + dayofweek)
         .then((response) => {        
             let ca = {...this.state.ca};
             ca = response.data;
@@ -93,6 +129,13 @@ class Prediction extends React.Component {
                                 accidental={this.state.ny.accidental}
                                 malicious={this.state.ny.malicious}
                                 other={this.state.ny.other}/>
+
+                <Bar
+                    data={this.barData}
+                    width={500}
+                    height={500}
+                    options={this.barOptions}
+                />
             </div>
         );
     }

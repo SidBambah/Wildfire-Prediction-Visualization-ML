@@ -1,7 +1,9 @@
 import React from 'react';
 
 class PredictionForm extends React.Component {
-
+  state={
+    location: ''
+  }
   changeHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -10,7 +12,18 @@ class PredictionForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.handleSubmit(this.state);
+    let data = this.state;
+    data.location = document.getElementById('autocomplete').value
+    this.props.handleSubmit(data);
+  }
+
+  componentDidMount = () => {
+
+    // Initialize Google Autocomplete
+    /*global google*/ // To disable any eslint 'google not defined' errors
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'),
+    );
   }
 
   render(){
@@ -19,7 +32,7 @@ class PredictionForm extends React.Component {
         <form>
           <div className="form-row">
             <div className="col">
-              <input type="text" className="form-control" placeholder= "Location" name="location" onChange = {this.changeHandler} />
+              <input type="text" className="form-control" placeholder= "Location" name="location" id="autocomplete" onChange = {this.changeHandler} />
             </div>
             <div className="col">
               <input type="text" className="form-control" placeholder= "Month" name="month" onChange = {this.changeHandler} />

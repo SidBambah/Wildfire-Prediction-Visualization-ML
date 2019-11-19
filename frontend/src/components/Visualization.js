@@ -15,7 +15,8 @@ class Visualization extends React.Component {
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
                         <h1 className="display-8">Exploratory Visualization</h1>
-                        <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p className="lead">Figures generated to analyze the wildfire dataset. This analysis assists in the
+                        development of machine learning models to predict the causes of wildfires.</p>
                     </div>
                 </div>
                 <IconCards />
