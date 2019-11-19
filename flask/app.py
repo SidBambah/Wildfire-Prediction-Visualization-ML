@@ -64,29 +64,13 @@ def choropleth_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
-@app.route("/api/prediction/ca", methods=["GET"])
-def prediction_ca():
+@app.route("/api/prediction", methods=["GET"])
+def prediction():
     location = request.args['location']
     month = request.args['month']
     dayofweek = request.args['dayofweek']
     latitude, longitude = getLatLong(location)
-    rsp_data = ml_tools.prediction_ca(month, dayofweek, latitude, longitude)
-    rsp_status = 200
-    full_rsp = Response(json.dumps(rsp_data, default=str),
-                                status=rsp_status, content_type="application/json")
-    return full_rsp
-
-@app.route("/api/prediction/tx", methods=["GET"])
-def prediction_tx():
-    rsp_data = ml_tools.prediction_tx()
-    rsp_status = 200
-    full_rsp = Response(json.dumps(rsp_data, default=str),
-                                status=rsp_status, content_type="application/json")
-    return full_rsp
-
-@app.route("/api/prediction/ny", methods=["GET"])
-def prediction_ny():
-    rsp_data = ml_tools.prediction_ny()
+    rsp_data = ml_tools.prediction(month, dayofweek, latitude, longitude)
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                                 status=rsp_status, content_type="application/json")
