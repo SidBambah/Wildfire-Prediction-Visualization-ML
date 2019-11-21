@@ -10,7 +10,9 @@ from flask_cors import CORS
 
 application = Flask(__name__)
 CORS(application)
+
 model = None
+
 def loadModel():
     global model
     model = load_model()
