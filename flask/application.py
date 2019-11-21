@@ -79,6 +79,7 @@ def choropleth_data():
 
 @application.route("/api/prediction", methods=["GET"])
 def prediction():
+    global model
     location = request.args['location']
     month = request.args['month']
     dayofweek = request.args['dayofweek']
@@ -90,4 +91,5 @@ def prediction():
     return full_rsp
 
 if __name__ == '__main__':
+    loadModel()
     application.run(debug=True)
