@@ -5,20 +5,21 @@ from DataAccess.S3Connector import load_model
 from Helper.geocoder import getLatLong
 import json
 from flask_cors import CORS
-import threading
 
 
 application = Flask(__name__)
 CORS(application)
+
+global modelLoaded
+modelLoaded = False
 global model
 
-def loadThread_fun():
+def loadModel():
+    global modelLoaded
     global model
-    model = load_model()
-    return model
-    
-loadThread = threading.Thread(target=loadThread_fun)
-loadThread.start()
+    if (~modelLoaded):
+        modelLoaded = True
+        model = load_model()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -78,7 +79,6 @@ def choropleth_data():
 
 @application.route("/api/prediction", methods=["GET"])
 def prediction():
-    global model
     location = request.args['location']
     month = request.args['month']
     dayofweek = request.args['dayofweek']
