@@ -10,10 +10,15 @@ import threading
 
 application = Flask(__name__)
 CORS(application)
+global model
 
-def init():
+def loadThread_fun():
     global model
     model = load_model()
+    return model
+    
+loadThread = threading.Thread(target=loadThread_fun)
+loadThread.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -85,5 +90,4 @@ def prediction():
     return full_rsp
 
 if __name__ == '__main__':
-    init()
     application.run(debug=True)
