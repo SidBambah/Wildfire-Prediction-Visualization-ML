@@ -1,4 +1,3 @@
-
 class MachineLearningAPI():
 
     @classmethod
