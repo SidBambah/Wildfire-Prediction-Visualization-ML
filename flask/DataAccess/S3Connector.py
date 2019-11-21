@@ -1,6 +1,7 @@
 from boto3 import client
 import joblib
 import os
+from io import BytesIO
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
@@ -23,7 +24,7 @@ def load_model():
     
     # Load model from temp directory
     #model = joblib.load(MODEL_LOCAL_PATH)
-    model = joblib.load(response['Body'].read())
+    model = joblib.load(BytesIO(response['Body'].read()))
     return model
 #class S3Connector(object):
     
