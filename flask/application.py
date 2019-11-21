@@ -11,12 +11,9 @@ import threading
 application = Flask(__name__)
 CORS(application)
 
-def loadThread_fun():
+def init():
     global model
     model = load_model()
-
-loadThread = threading.Thread(target=loadThread_fun)
-loadThread.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -76,6 +73,7 @@ def choropleth_data():
 
 @application.route("/api/prediction", methods=["GET"])
 def prediction():
+    global model
     location = request.args['location']
     month = request.args['month']
     dayofweek = request.args['dayofweek']
@@ -87,4 +85,5 @@ def prediction():
     return full_rsp
 
 if __name__ == '__main__':
+    init()
     application.run(debug=True)
