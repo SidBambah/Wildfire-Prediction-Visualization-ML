@@ -8,7 +8,7 @@ BUCKET_NAME = os.environ.get('BUCKET_NAME', None)
 MODEL_FILE_NAME = os.environ.get('MODEL_FILE_NAME', None)
 MODEL_LOCAL_PATH = '/tmp/' + MODEL_FILE_NAME
 
-class S3Connector(object):
+def load_model():
     # Connect to S3 Bucket
     conn = client(
         's3',
@@ -24,6 +24,9 @@ class S3Connector(object):
     # Load model from temp directory
     #model = joblib.load(MODEL_LOCAL_PATH)
     model = joblib.load(response['Body'].read())
+    return model
+#class S3Connector(object):
+    
 
     # Remove serialized model to free space
-    os.remove(MODEL_LOCAL_PATH)
+    #os.remove(MODEL_LOCAL_PATH)

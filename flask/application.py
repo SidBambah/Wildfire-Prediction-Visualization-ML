@@ -1,12 +1,15 @@
 from flask import Flask, Response, request
 from Visualization.VisualizationAPI import VisualizationAPI as vis_tools
 from MachineLearning.MachineLearningAPI import MachineLearningAPI as ml_tools
+from DataAccess.S3Connector import load_model
 from Helper.geocoder import getLatLong
 import json
 from flask_cors import CORS
 
 application = Flask(__name__)
 CORS(application)
+
+model = load_model()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -70,7 +73,7 @@ def prediction():
     month = request.args['month']
     dayofweek = request.args['dayofweek']
     latitude, longitude = getLatLong(location)
-    rsp_data = ml_tools.prediction(month, dayofweek, latitude, longitude)
+    rsp_data = ml_tools.prediction(model, month, dayofweek, latitude, longitude)
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                                 status=rsp_status, content_type="application/json")
