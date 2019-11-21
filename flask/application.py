@@ -7,16 +7,11 @@ import json
 import threading
 from flask_cors import CORS
 
+global model
+model = load_model()
 
 application = Flask(__name__)
 CORS(application)
-
-def loadModel():
-    global model
-    model = load_model()
-
-modelLoader = threading.Thread(target=loadModel)
-modelLoader.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -88,5 +83,4 @@ def prediction():
     return full_rsp
 
 if __name__ == '__main__':
-    loadModel()
     application.run(debug=True)
