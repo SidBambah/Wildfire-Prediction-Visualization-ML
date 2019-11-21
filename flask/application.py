@@ -5,11 +5,18 @@ from DataAccess.S3Connector import load_model
 from Helper.geocoder import getLatLong
 import json
 from flask_cors import CORS
+import threading
+
 
 application = Flask(__name__)
 CORS(application)
 
-model = load_model()
+def loadThread_fun():
+    global model
+    model = load_model()
+
+loadThread = threading.Thread(target=loadThread_fun)
+loadThread.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
