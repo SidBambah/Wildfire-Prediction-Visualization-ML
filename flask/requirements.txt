@@ -3,3 +3,4 @@ pymongo==3.9.0
 dnspython==1.16.0
 googlemaps==3.1.4
 flask-cors==3.0.8
+boto3==1.10.23
