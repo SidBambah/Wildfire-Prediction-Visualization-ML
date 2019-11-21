@@ -16,10 +16,14 @@ class S3Connector(object):
         aws_access_key_id=AWS_ACCESS_KEY_ID,
         aws_secret_access_key=AWS_SECRET_ACCESS_KEY
     )
-    conn.download_file(BUCKET_NAME, MODEL_FILE_NAME, MODEL_LOCAL_PATH)
+
+    response = conn.get_object(Bucket=BUCKET_NAME, Key=MODEL_FILE_NAME)
+
+    #conn.download_file(BUCKET_NAME, MODEL_FILE_NAME, MODEL_LOCAL_PATH)
     
     # Load model from temp directory
-    model = joblib.load(MODEL_LOCAL_PATH)
+    #model = joblib.load(MODEL_LOCAL_PATH)
+    model = joblib.load(response['Body'].read())
 
     # Remove serialized model to free space
     os.remove(MODEL_LOCAL_PATH)
