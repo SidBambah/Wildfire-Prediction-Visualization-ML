@@ -1,4 +1,4 @@
-#from DataAccess.S3Connector import S3Connector as s3
+
 class MachineLearningAPI():
 
     @classmethod
