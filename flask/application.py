@@ -4,22 +4,19 @@ from MachineLearning.MachineLearningAPI import MachineLearningAPI as ml_tools
 from DataAccess.S3Connector import load_model
 from Helper.geocoder import getLatLong
 import json
+import threading
 from flask_cors import CORS
 
 
 application = Flask(__name__)
 CORS(application)
 
-global modelLoaded
-modelLoaded = False
-global model
-
 def loadModel():
-    global modelLoaded
     global model
-    if (~modelLoaded):
-        modelLoaded = True
-        model = load_model()
+    model = load_model()
+
+modelLoader = threading.Thread(target=loadModel)
+modelLoader.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
