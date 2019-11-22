@@ -13,7 +13,7 @@ CORS(application)
 
 model = None
 
-def loadModel():
+async def loadModel():
     global model
     model = load_model()
 
