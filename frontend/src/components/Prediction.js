@@ -7,42 +7,26 @@ import {Bar} from 'react-chartjs-2';
 
 class Prediction extends React.Component {
     state={
-        ca: {
-            natural: 0,
-            accidental: 0,
-            malicious: 0,
-            other: 0
-        },
-        tx: {
-            natural: 0,
-            accidental: 0,
-            malicious: 0,
-            other: 0
-        },
-        ny: {
-            natural: 0,
-            accidental: 0,
-            malicious: 0,
-            other: 0
+        natural: 0,
+        accidental: 0,
+        malicious: 0,
+        other: 0,
+        barData: {
+            labels: ["Natural", "Accidental", "Malicious", "Other"],
+            datasets: [
+                {
+                label: "Wildfire Probability",
+                backgroundColor: 'rgba(53, 170, 94, 0.6)',
+                borderColor: 'rgba(7, 12, 9, 0.6)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(105, 201, 246, 0.3)',
+                hoverBorderColor: 'rgba(7, 12, 9, 0.6)',
+                data: []
+                }
+            ]
         }
     }
 
-    barData={
-        data: {
-            labels: [],
-            datasets: [
-              {
-                label: this.props.name,
-                backgroundColor: 'rgba(255,99,132,0.2)',
-                borderColor: 'rgba(255,99,132,1)',
-                borderWidth: 1,
-                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                hoverBorderColor: 'rgba(255,99,132,1)',
-                data: this.state.ca
-              }
-            ]
-          }
-    }
 
     barOptions={
         maintainAspectRatio: false,
@@ -50,7 +34,7 @@ class Prediction extends React.Component {
             yAxes: [{
                 scaleLabel: {
                 display: true,
-                labelString: "Probability"
+                labelString: "Probability (%)"
                 }
             }],
             xAxes: [{
@@ -61,46 +45,26 @@ class Prediction extends React.Component {
             }],
         }
     }
-    handleCASubmit = (data) => {
+    handleSubmit = (data) => {
         let location = data.location;
         let month = data.month;
         let dayofweek = data.dayofweek;
         //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/prediction/ca?location=' + location + 
+        axios.get(APIConnection["endpoint"] + '/prediction?location=' + location + 
         '&month=' + month + '&dayofweek=' + dayofweek)
         .then((response) => {        
-            let ca = {...this.state.ca};
-            ca = response.data;
-            this.setState({ca});
+            
+            this.setState({natural: response.data['natural'],
+                            accidental: response.data['accidental'],
+                            malicious: response.data['malicious'],
+                            other: response.data['other']});
+            
+            const { barData } = { ...this.state }
+            const currentState = barData
+            currentState.datasets[0].data = [response.data['natural']*100, response.data['accidental']*100,
+                                                response.data['malicious']*100,response.data['other']*100]
+            this.setState({ barData: currentState })
         }); 
-    }
-    handleTXSubmit = (data) => {
-        let latitude = data.latitude;
-        let longitude = data.longitude;
-        let month = data.month;
-        let dayofweek = data.dayofweek;
-        //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/prediction/ca?latitude=' + latitude
-        + '&longitude=' + longitude + '&month=' + month + '&dayofweek=' + dayofweek)
-        .then((response) => {        
-            let tx = {...this.state.tx};
-            tx = response.data;
-            this.setState({tx});
-        });
-    }
-    handleNYSubmit = (data) => {
-        let latitude = data.latitude;
-        let longitude = data.longitude;
-        let month = data.month;
-        let dayofweek = data.dayofweek;
-        //Axios Get Request
-        axios.get(APIConnection["endpoint"] + '/prediction/ny?latitude=' + latitude
-        + '&longitude=' + longitude + '&month=' + month + '&dayofweek=' + dayofweek)
-        .then((response) => {        
-            let ny = {...this.state.ny};
-            ny = response.data;
-            this.setState({ny});
-        });
     }
     render(){
         return(
@@ -111,31 +75,20 @@ class Prediction extends React.Component {
                         <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
                     </div>
                 </div>
-                <h3>CA Predictions</h3>
-                <PredictionForm handleSubmit={this.handleCASubmit} />         
-                <PredictionTable natural={this.state.ca.natural}
-                                accidental={this.state.ca.accidental}
-                                malicious={this.state.ca.malicious}
-                                other={this.state.ca.other} />
-                <h3>TX Predictions</h3>
-                <PredictionForm handleSubmit={this.handleTXSubmit} />         
-                <PredictionTable natural={this.state.tx.natural}
-                                accidental={this.state.tx.accidental}
-                                malicious={this.state.tx.malicious}
-                                other={this.state.tx.other}/>
-                <h3>NY Predictions</h3>
-                <PredictionForm handleSubmit={this.handleNYSubmit}/>         
-                <PredictionTable natural={this.state.ny.natural}
-                                accidental={this.state.ny.accidental}
-                                malicious={this.state.ny.malicious}
-                                other={this.state.ny.other}/>
-
+                <h3>Wildfire Predictions</h3>
+                <PredictionForm handleSubmit={this.handleSubmit} />         
+                <PredictionTable natural={this.state.natural*100}
+                                accidental={this.state.accidental*100}
+                                malicious={this.state.malicious*100}
+                                other={this.state.other*100} />
+                <div style={{height: '500px', width: '500px'}} className="mx-auto">
                 <Bar
-                    data={this.barData}
-                    width={500}
-                    height={500}
+                    data={this.state.barData}
                     options={this.barOptions}
+                    height={300}
+                    width={400}
                 />
+                </div>
             </div>
         );
     }
