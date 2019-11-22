@@ -11,9 +11,13 @@ from flask_cors import CORS
 application = Flask(__name__)
 CORS(application)
 
+lock = threading.Lock()
+model = None
 def loadModel():
+    lock.acquire()
     global model
     model = load_model()
+    lock.release()
 
 modelLoader = threading.Thread(target=loadModel)
 modelLoader.start()
@@ -77,14 +81,17 @@ def choropleth_data():
 @application.route("/api/prediction", methods=["GET"])
 def prediction():
     global model
+    lock.acquire()
     location = request.args['location']
     month = request.args['month']
     dayofweek = request.args['dayofweek']
     latitude, longitude = getLatLong(location)
     rsp_data = ml_tools.prediction(model, month, dayofweek, latitude, longitude)
+    lock.release()
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                                 status=rsp_status, content_type="application/json")
+
     return full_rsp
 
 if __name__ == '__main__':
