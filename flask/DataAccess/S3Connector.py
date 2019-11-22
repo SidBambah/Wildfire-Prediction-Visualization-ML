@@ -19,15 +19,7 @@ def load_model():
     )
 
     response = conn.get_object(Bucket=BUCKET_NAME, Key=MODEL_FILE_NAME)
-
-    #conn.download_file(BUCKET_NAME, MODEL_FILE_NAME, MODEL_LOCAL_PATH)
     
     # Load model from temp directory
-    #model = joblib.load(MODEL_LOCAL_PATH)
     model = joblib.load(BytesIO(response['Body'].read()))
     return model
-#class S3Connector(object):
-    
-
-    # Remove serialized model to free space
-    #os.remove(MODEL_LOCAL_PATH)
