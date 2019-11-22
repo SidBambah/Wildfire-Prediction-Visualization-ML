@@ -7,5 +7,4 @@ class MachineLearningAPI():
         result = {}
         for i in range(len(prediction)):
             result[classes[i]] = prediction[i]
-        print(result)
-        return {'natural': 5, 'malicious': 3, 'accidental': 2, 'other': 7}
+        return result
