@@ -14,14 +14,13 @@ CORS(application)
 lock = threading.Lock()
 model = None
 
-def loadModel(lock):
+def loadModel():
     lock.acquire()
     global model
-    print("Model loading started")
     model = load_model()
     lock.release()
 
-modelLoader = threading.Thread(target=loadModel, args=lock)
+modelLoader = threading.Thread(target=loadModel)
 modelLoader.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
