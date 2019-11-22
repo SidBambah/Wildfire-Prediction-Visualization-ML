@@ -13,6 +13,7 @@ CORS(application)
 
 lock = threading.Lock()
 model = None
+
 def loadModel():
     lock.acquire()
     global model
