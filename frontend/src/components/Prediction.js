@@ -72,7 +72,8 @@ class Prediction extends React.Component {
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
                         <h1 className="display-8">Machine Learning</h1>
-                        <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                        <p className="lead">Make predictions on model trained with Random Forest Classifier. The required inputs are
+                        Location, Month, and Day of Week.</p>
                     </div>
                 </div>
                 <h3>Wildfire Predictions</h3>

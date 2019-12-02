@@ -1,7 +1,7 @@
 import React from 'react';
 import IconCards from './IconCards.js';
 import DonutChart from './DonutChart.js';
-import DataTable from './DataTable.js';
+import MyDataTable from './MyDataTable.js';
 import WordCloud from './WordCloud.js';
 import BarChart from './BarChart.js';
 import ChoroplethMap from './ChoroplethMap.js';
@@ -42,9 +42,9 @@ class Visualization extends React.Component {
                         width={500}
                         height={500}/>
                 <ChoroplethMap />
-                {<GoogleMapCluster />}
+                {/*<GoogleMapCluster />*/}
                 <DynamicVisualization />
-                <DataTable />
+                <MyDataTable />
             </div>
         );
     }
