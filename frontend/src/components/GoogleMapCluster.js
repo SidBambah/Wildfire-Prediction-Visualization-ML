@@ -13,9 +13,11 @@ class GoogleMapCluster extends React.Component {
     }
    
     componentDidMount(){
+        console.log("Getting data")
         //Axios Get Request
         axios.get(APIConnection["endpoint"] + '/visualization/markers')
             .then((response) => {
+                console.log("Got data")
                 this.setState({markers: response.data, isLoaded: true});
         });
       }
@@ -47,24 +49,24 @@ class GoogleMapCluster extends React.Component {
          ));
 
         return (
+            <LoadingOverlay
+                    active={!this.state.isLoaded}
+                    spinner
+                    text='Loading your content...'
+            >
             <div className="card mb-3">
             <div className="card-header">
                 <i className="fas fa-chart-area"></i>
                 &nbsp; Google Map Clusters</div>
             <div className="card-body mx-auto"  style={{height: '500px', width: '700px'}}>
-                <LoadingOverlay
-                    active={!this.state.isLoaded}
-                    spinner
-                    text='Loading your content...'
-                >
                 <GoogleCluster
                     containerElement={ <div style={{ height: `100%`, width: '100%' }} /> }
                     mapElement={ <div style={{ height: `100%` }} /> }
                 />
-                </LoadingOverlay>
             </div>
             <div className="card-footer small text-muted text-right">Updated { dateTime }</div>
             </div>
+            </LoadingOverlay>
         );
     }
 }

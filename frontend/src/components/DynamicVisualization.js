@@ -27,7 +27,7 @@ class DynamicVisualization extends React.Component {
             <div>
             <h2 className='text-center'> Dynamically Generated Visualizations </h2>
             <InlineForm handleSubmit={this.handleSubmit}/>
-            {(this.state.param1 !== null && this.state.param1 !== undefined && this.state.param !== null && this.state.param2 !== undefined)?
+            {(this.state.param1 !== null && this.state.param1 !== undefined)?
                 <div>
                 <WordCloud key={this.state.key} parameter={this.state.param1}/>
                 <BarChart key={this.state.key + 1}
@@ -49,7 +49,7 @@ class DynamicVisualization extends React.Component {
                 : 
                 false
             }
-            {(this.state.param2 !== null && this.state.param2 !== undefined && this.state.param2 !== null && this.state.param2 !== undefined)?
+            {(this.state.param2 !== null && this.state.param2 !== undefined && this.state.param3 !== null && this.state.param3 !== undefined)?
                 <BarChart key={this.state.key + 3}
                 name={"Fires by " + readableParam[this.state.param1] + " where " + readableParam[this.state.param2] +
                 " is " + this.state.param3} 
