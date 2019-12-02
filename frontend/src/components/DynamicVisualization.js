@@ -21,8 +21,8 @@ class DynamicVisualization extends React.Component {
 
     render(){
         var readableParam = {'STATE': 'State', 'STAT_CAUSE_DESCR': 'Cause', 'FIRE_NAME': 'Fire Name',
-                              'FIRE_CODE': 'Fire Code', 'SOURCE_REPORTING_UNIT_NAME': 'Reporting Unit',
-                            'DISCOVERY_DOY': 'Day of Year'  };
+                              'FIRE_CODE': 'Fire Code', 'NWCG_REPORTING_UNIT_NAME': 'Reporting Unit',
+                            'DAY_OF_WEEK': 'Day of Week', 'FIRE_SIZE': 'Fire Size'  };
         return (
             <div>
             <h2 className='text-center'> Dynamically Generated Visualizations </h2>

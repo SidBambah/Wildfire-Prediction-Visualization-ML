@@ -23,8 +23,9 @@ class InlineForm extends React.Component {
               <option value="STAT_CAUSE_DESCR">Cause</option>
               <option value="FIRE_NAME">Fire Name</option>
               <option value="FIRE_CODE">Fire Code</option>
-              <option value="SOURCE_REPORTING_UNIT_NAME">Reporting Unit</option>
-              <option value="DISCOVERY_DOY">Day of Year</option>
+              <option value="NWCG_REPORTING_UNIT_NAME">Reporting Unit</option>
+              <option value="DAY_OF_WEEK">Day of Week</option>
+              <option value="FIRE_SIZE">Fire Size</option>
             </datalist>
             <div className="col">
               <input list="options" type="text" className="form-control" placeholder= "Parameter 1" name="param1" onChange = {this.changeHandler} />
