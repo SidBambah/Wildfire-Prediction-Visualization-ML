@@ -71,6 +71,14 @@ def choropleth_data():
                             status=rsp_status, content_type="application/json")
     return full_rsp
 
+@application.route("/api/visualization/datatable", methods=["GET"])
+def datatable():
+    rsp_data = vis_tools.datatable()
+    rsp_status = 200
+    full_rsp = Response(json.dumps(rsp_data, default=str),
+                            status=rsp_status, content_type="application/json")
+    return full_rsp
+
 @application.route("/api/prediction", methods=["GET"])
 def prediction():
     global model

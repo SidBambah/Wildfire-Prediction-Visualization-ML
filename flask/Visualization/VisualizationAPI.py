@@ -83,6 +83,13 @@ class VisualizationAPI():
             except:
                 pass
         return result
+
+    @classmethod
+    def datatable(self):
+        # Choose 100 random rows
+        # Note: Can and should be updated for different use cases
+        result = list(self._fire_collection.aggregate([{"$sample": {"size": 100}}]))
+        return result
     
     @classmethod
     def choropleth(self):
