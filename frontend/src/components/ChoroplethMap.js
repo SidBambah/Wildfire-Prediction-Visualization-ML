@@ -41,16 +41,17 @@ class ChoroplethMap extends React.Component {
         return "Unknown"
     }
 
-    componentWillMount(){
+    componentDidMount(){
         //Axios Get Request
         axios.get(APIConnection["endpoint"] + '/visualization/choropleth')
             .then((response) => {
                 this.setState({ data : response.data })
+                this.forceUpdate()
         });
       }
 
     getFill = (geography) => {
-        return this.state.data ? this.customScale(this.getValue(geography.properties.name)) : "#808080"
+        return this.state.data ? this.customScale(this.getValue(geography.properties.name)*0.05) : "#808080"
     }
 
     render(){

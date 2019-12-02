@@ -21,7 +21,7 @@ def loadModel():
     lock.release()
 
 modelLoader = threading.Thread(target=loadModel)
-modelLoader.start()
+#modelLoader.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
@@ -50,14 +50,6 @@ def donutchart_data():
     parameter = request.args['parameter']
     limit = request.args['limit']
     rsp_data = vis_tools.donutchart(parameter, limit)
-    rsp_status = 200
-    full_rsp = Response(json.dumps(rsp_data, default=str),
-                            status=rsp_status, content_type="application/json")
-    return full_rsp
-
-@application.route("/api/visualization/correlation", methods=["GET"])
-def correlation_data():
-    rsp_data = vis_tools.correlationmatrix()
     rsp_status = 200
     full_rsp = Response(json.dumps(rsp_data, default=str),
                             status=rsp_status, content_type="application/json")

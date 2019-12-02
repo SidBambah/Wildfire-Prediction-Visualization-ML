@@ -1,6 +1,7 @@
 from DataAccess.DBConnector import DBConnector as db
 import json
 from Helper.us_state_abbrev import abbrev_us_state
+import random
 class VisualizationAPI():
     _fire_collection = db.col
 
@@ -67,27 +68,20 @@ class VisualizationAPI():
         return result
 
     @classmethod
-    def correlationmatrix(self):
-        return "Correlation matrix stuff"
-
-    @classmethod
     def markers(self):
-        doc = self._fire_collection.find({}, {'LATITUDE':1, 'LONGITUDE':1, "_id":1})
-        tempResult =  [x for x in doc]
-
-        # Processing Dict into properly named keys
-        for i in range(len(tempResult)):
-            tempResult[i]['latitude'] = tempResult[i].pop('LATITUDE')
-            tempResult[i]['longitude'] = tempResult[i].pop('LONGITUDE')
-            tempResult[i]['id'] = tempResult[i].pop('_id')
-
+        tempResult = []
+        # Only send ~500k points so browser can display clusters
+        for i in range(6):
+            print(i)
+            docs = list(self._fire_collection.aggregate([{"$project": {"LATITUDE": 1, "LONGITUDE": 1}},\
+            {"$sample": {"size": 90000}}]))
+            tempResult = tempResult + docs
         result = []
         for i in range(len(tempResult)):
             try:
-                result.append({'latitude': float(tempResult[i]['latitude']), 'longitude': float(tempResult[i]['longitude']), 'id': int(abs(hash(tempResult[i]['id'])))})
+                result.append({'latitude': float(tempResult[i]['LATITUDE']), 'longitude': float(tempResult[i]['LONGITUDE']), 'id': int(abs(hash(tempResult[i]['_id'])))})
             except:
                 pass
-
         return result
     
     @classmethod

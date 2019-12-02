@@ -2,19 +2,21 @@ import React from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import APIConnection from './APIConnection.js';
 import axios from 'axios';
+import LoadingOverlay from 'react-loading-overlay';
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 class GoogleMapCluster extends React.Component {
 
     state = {
-        markers: []
+        markers: [],
+        isLoaded: false
     }
    
     componentDidMount(){
         //Axios Get Request
         axios.get(APIConnection["endpoint"] + '/visualization/markers')
             .then((response) => {
-                this.setState({markers: response.data});
+                this.setState({markers: response.data, isLoaded: true});
         });
       }
     
@@ -50,10 +52,16 @@ class GoogleMapCluster extends React.Component {
                 <i className="fas fa-chart-area"></i>
                 &nbsp; Google Map Clusters</div>
             <div className="card-body mx-auto"  style={{height: '500px', width: '700px'}}>
+                <LoadingOverlay
+                    active={!this.state.isLoaded}
+                    spinner
+                    text='Loading your content...'
+                >
                 <GoogleCluster
                     containerElement={ <div style={{ height: `100%`, width: '100%' }} /> }
                     mapElement={ <div style={{ height: `100%` }} /> }
                 />
+                </LoadingOverlay>
             </div>
             <div className="card-footer small text-muted text-right">Updated { dateTime }</div>
             </div>

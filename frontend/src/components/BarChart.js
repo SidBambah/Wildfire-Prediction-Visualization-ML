@@ -10,11 +10,11 @@ class BarChart extends React.Component {
             datasets: [
               {
                 label: this.props.name,
-                backgroundColor: 'rgba(255,99,132,0.2)',
-                borderColor: 'rgba(255,99,132,1)',
+                backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
+                borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                hoverBorderColor: 'rgba(255,99,132,1)',
+                hoverBackgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
+                hoverBorderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
                 data: []
               }
             ]
