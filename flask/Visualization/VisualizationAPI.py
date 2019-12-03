@@ -88,7 +88,12 @@ class VisualizationAPI():
     def datatable(self):
         # Choose 100 random rows
         # Note: Can and should be updated for different use cases
-        result = list(self._fire_collection.aggregate([{"$sample": {"size": 100}}]))
+        result = list(self._fire_collection.aggregate([{"$project": {"STATE": 1, "STAT_CAUSE_DESCR": 1,
+        "NWCG_REPORTING_UNIT_NAME": 1, "FIRE_NAME": 1, "MONTH": 1, "DAY_OF_WEEK": 1}},
+        {"$sample": {"size": 1000}}]))
+        result = [{'STATE': str(d['STATE']), 'STAT_CAUSE_DESCR': str(d['STAT_CAUSE_DESCR']),
+        'NWCG_REPORTING_UNIT_NAME': str(d['NWCG_REPORTING_UNIT_NAME']), 'FIRE_NAME': str(d['FIRE_NAME']),
+        'MONTH': str(d['MONTH']), 'DAY_OF_WEEK': str(d['DAY_OF_WEEK'])} for d in result]
         return result
     
     @classmethod

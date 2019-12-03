@@ -21,7 +21,7 @@ def loadModel():
     lock.release()
 
 modelLoader = threading.Thread(target=loadModel)
-#modelLoader.start()
+modelLoader.start()
 
 @application.route("/api/visualization/wordcloud", methods=["GET"])
 def wordcloud_data():
