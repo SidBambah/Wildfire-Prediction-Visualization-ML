@@ -44,7 +44,7 @@ class Visualization extends React.Component {
                 <ChoroplethMap />
                 {/*<GoogleMapCluster />*/}
                 <DynamicVisualization />
-                <MyDataTable />
+                {<MyDataTable />}
             </div>
         );
     }

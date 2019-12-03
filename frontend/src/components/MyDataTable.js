@@ -16,7 +16,8 @@ class MyDataTable extends React.Component {
                 selector: 'STAT_CAUSE_DESCR'
             },
             {
-                name: 'Reporting Unit'
+                name: 'Reporting Unit',
+                selector: 'NWCG_REPORTING_UNIT_NAME'
             },
             {
                 name: 'Fire Name',
@@ -52,11 +53,16 @@ class MyDataTable extends React.Component {
                     <i className="fas fa-table"></i>
                     &nbsp; Data Table</div>
                 <div className="card-body">
-                <DataTable
-                    title="Random Subset of Wildfires"
-                    columns={this.state.columns}
-                    data={this.state.data}
-                />
+                {(this.state.data.length !== 0)?
+                    <DataTable
+                        pagination
+                        title="Random Subset of Wildfires"
+                        columns={this.state.columns}
+                        data={this.state.data}
+                    />
+                    :
+                    false
+                }
                 </div>
                 <div className="card-footer small text-muted text-right">Updated { dateTime }</div>
             </div>
