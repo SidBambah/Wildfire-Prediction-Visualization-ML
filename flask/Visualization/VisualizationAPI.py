@@ -14,8 +14,8 @@ class VisualizationAPI():
         
         # Processing Dict into properly named keys
         for i in range(len(result)):
-            result[i]['text'] = result[i].pop('_id')
-            result[i]['value'] = result[i].pop('count')
+            result[i]['text'] = str(result[i].pop('_id'))
+            result[i]['value'] = int(result[i].pop('count'))
 
         return result
 
@@ -42,8 +42,8 @@ class VisualizationAPI():
         labels = []
         data = []
         for i in range(len(result)):
-            labels.append(result[i]["_id"])
-            data.append(result[i]["count"])
+            labels.append(str(result[i]["_id"]))
+            data.append(int(result[i]["count"]))
         result = {"labels": labels, "data": data}
         return result
 
