@@ -21,7 +21,7 @@ class DynamicVisualization extends React.Component {
 
     render(){
         var readableParam = {'STATE': 'State', 'STAT_CAUSE_DESCR': 'Cause', 'FIRE_NAME': 'Fire Name',
-                              'FIRE_CODE': 'Fire Code', 'NWCG_REPORTING_UNIT_NAME': 'Reporting Unit',
+                            'NWCG_REPORTING_UNIT_NAME': 'Reporting Unit',
                             'DAY_OF_WEEK': 'Day of Week', 'FIRE_SIZE': 'Fire Size'  };
         return (
             <div>
@@ -29,8 +29,7 @@ class DynamicVisualization extends React.Component {
             <InlineForm handleSubmit={this.handleSubmit}/>
             {(this.state.param1 !== null && this.state.param1 !== undefined)?
                 <div>
-                <WordCloud key={this.state.key} parameter={this.state.param1}/>
-                <BarChart key={this.state.key + 1}
+                <BarChart key={this.state.key}
                             name={"Fires by " + readableParam[this.state.param1]} 
                             parameter1={this.state.param1}
                             parameter2={this.state.param2}
@@ -39,6 +38,7 @@ class DynamicVisualization extends React.Component {
                             yaxis={'Count'}
                             width={500}
                             height={500}/>
+                <WordCloud key={this.state.key + 1} parameter={this.state.param1}/>
                 <DonutChart key={this.state.key + 2}
                                 name={readableParam[this.state.param1]}
                                 parameter={this.state.param1}

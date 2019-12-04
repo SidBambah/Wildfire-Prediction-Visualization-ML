@@ -22,7 +22,6 @@ class InlineForm extends React.Component {
               <option value="STATE">State</option>
               <option value="STAT_CAUSE_DESCR">Cause</option>
               <option value="FIRE_NAME">Fire Name</option>
-              <option value="FIRE_CODE">Fire Code</option>
               <option value="NWCG_REPORTING_UNIT_NAME">Reporting Unit</option>
               <option value="DAY_OF_WEEK">Day of Week</option>
               <option value="FIRE_SIZE">Fire Size</option>
