@@ -16,7 +16,8 @@ class VisualizationAPI():
         for i in range(len(result)):
             result[i]['text'] = str(result[i].pop('_id'))
             result[i]['value'] = int(result[i].pop('count'))
-
+        if result[0]['text'] == 'nan':
+            result.pop(0)
         return result
 
 
@@ -44,6 +45,9 @@ class VisualizationAPI():
         for i in range(len(result)):
             labels.append(str(result[i]["_id"]))
             data.append(int(result[i]["count"]))
+        if labels[0] == "nan":
+            labels.pop(0)
+            data.pop(0)
         result = {"labels": labels, "data": data}
         return result
 
@@ -64,6 +68,9 @@ class VisualizationAPI():
         for i in range(len(result)):
             labels.append(result[i]["_id"])
             data.append(result[i]["count"])
+        if labels[0] == "nan":
+            labels.pop(0)
+            data.pop(0)
         result = {"labels": labels, "data": data}
         return result
 
