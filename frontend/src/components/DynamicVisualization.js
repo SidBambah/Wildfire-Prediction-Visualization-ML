@@ -32,7 +32,6 @@ class DynamicVisualization extends React.Component {
                 <BarChart key={this.state.key}
                             name={"Fires by " + readableParam[this.state.param1]} 
                             parameter1={this.state.param1}
-                            parameter2={this.state.param2}
                             limit={12}
                             xaxis={readableParam[this.state.param1]}
                             yaxis={'Count'}
