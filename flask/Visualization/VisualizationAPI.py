@@ -8,7 +8,8 @@ class VisualizationAPI():
     @classmethod
     def wordcloud(self, parameter):
         doc = self._fire_collection.aggregate([
-            {"$group" : {"_id":"$" + parameter, "count":{"$sum":1}}}
+            {"$group" : {"_id":"$" + parameter, "count":{"$sum":1}}},
+            {"$sort": {"count":-1}}
         ])
         result =  [x for x in doc]
         
@@ -68,9 +69,6 @@ class VisualizationAPI():
         for i in range(len(result)):
             labels.append(result[i]["_id"])
             data.append(result[i]["count"])
-        if labels[0] == "nan":
-            labels.pop(0)
-            data.pop(0)
         result = {"labels": labels, "data": data}
         return result
 
