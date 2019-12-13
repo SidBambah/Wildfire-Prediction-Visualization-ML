@@ -13,14 +13,16 @@
 \title{Wildfire Exploratory Visualization and Machine Learning\\}
 
 \author{\IEEEauthorblockN{1\textsuperscript{st} Sidharth Bambah}
-\IEEEauthorblockA{\textit{Electrical Engineering} \\
+\IEEEauthorblockA{\textit{UNI: sb4283}\\
+\textit{Electrical Engineering} \\
 \textit{Columbia University}\\
 New York, USA \\
 sidharth.bambah@columbia.edu}
 \and
 \IEEEauthorblockN{2\textsuperscript{nd} 
 Vedant Dave}
-\IEEEauthorblockA{\textit{Electrical Engineering} \\
+\IEEEauthorblockA{\textit{UNI: vad2134}\\
+\textit{Electrical Engineering} \\
 \textit{Columbia University}\\
 New York, USA \\
 vad2134@columbia.edu}
@@ -189,7 +191,7 @@ In terms of Machine learning, the model was trained using a suitable machine lea
 
 Next, the Decision Trees algorithm was implemented as it uses a tree like model of decisions to give possible chance event outcomes. The target was to predict such chance-event possibilities when this algorithm is implemented on the model. Still, the expected accuracy was not achieved as there was no considerable improvement due to decision trees inability to handle the features that our dataset had. \par
 
-Finally, the Random Forest Classifier Algorithm, as shown in Figure \ref{fig:random_forest}, was employed. It comprises of many decision trees, and hence, provides ease in feature handling. This algorithm gave us a decent accuracy thereby reproducing legible predictions about the probable causes of wildfires. After this algorithm was implemented, to make the model more user-friendly, the user was allowed to provide inputs such as latitude, longitude, month and day of week of their choice so as to let them see the dynamic predictions made by the model in the form of a histogram as depicted in Figure \ref{fig:model_predictions}.
+Finally, the Random Forest Classifier Algorithm, as shown in Figure \ref{fig:random_forest}, was employed. It comprises of many decision trees, and hence, provides ease in feature handling. This algorithm uses bagging and feature randomness when building each individual tree to try to create an uncorrected forest of trees whose prediction by committee is more accurate than that of any individual tree. This algorithm gave us a decent accuracy thereby reproducing legible predictions about the probable causes of wildfires. After this algorithm was implemented, to make the model more user-friendly, the user was allowed to provide inputs such as latitude, longitude, month and day of week of their choice so as to let them see the dynamic predictions made by the model in the form of a histogram as depicted in Figure \ref{fig:model_predictions}.
 
 \begin{figure}
     \centering
