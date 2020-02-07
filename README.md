@@ -1,5 +1,7 @@
 # Wildfire Exploratory Visualization and Machine Learning
 
+## Team members
+Vedant Dave & Siddarth Bambah
 
 ## Objectives
 
