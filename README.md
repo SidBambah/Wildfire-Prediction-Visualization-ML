@@ -1,7 +1,7 @@
 # Wildfire Exploratory Visualization and Machine Learning
 
 ## Team members
-Vedant Dave & Siddarth Bambah
+Sidharth Bambah & Vedant Dave
 
 ## Objectives
 
